@@ -1,0 +1,13 @@
+colorscheme darcula
+
+" Line number
+set number
+
+" Mouse
+set mouse=a
+set ttymouse=sgr
+
+" Debugger
+packadd termdebug
+let g:termdebug_wide = 163
+

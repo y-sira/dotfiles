@@ -1,0 +1,1 @@
+../../darcula/colors/darcula.vim

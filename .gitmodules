@@ -1,3 +1,6 @@
 [submodule "grml-etc-core"]
 	path = grml-etc-core
 	url = https://github.com/grml/grml-etc-core.git
+[submodule "darcula"]
+	path = darcula
+	url = https://github.com/blueshirts/darcula.git
