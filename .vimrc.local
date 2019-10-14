@@ -1,13 +1,33 @@
+" Set color scheme
 colorscheme darcula
 
-" Line number
-set number
+set tabstop=4
 
-" Mouse
-set mouse=a
-set ttymouse=sgr
+set nowrap	" No wrap
+set number	" Show line numbers
+set cursorline
+
+set autoread	" Read changes automatically
+set nobackup	" Disable backup files
+set noswapfile	" Disable swap files
+set hidden	" Allow open another file without writing buffer
+
+set mouse=a		" Enable mouse
+set ttymouse=sgr	" Use SGR mouse tracking
+
+set clipboard+=unnamed	" Share the clipboard
+
+set backspace=indent,eol,start	" Delete indent and EOL with backspace
+
+set ignorecase	" Disable case sensitive search
+
+" netrw
+let g:netrw_liststyle		= 3	" List style
+let g:netrw_banner		= 0	" Disable banner
+let g:netrw_preview		= 1	" Preview in left
+let g:netrw_winsize		= 30	" Preview size (percentage)
+let g:netrw_browse_split 	= 3	" open files in a vertical split
 
 " Debugger
 packadd termdebug
 let g:termdebug_wide = 163
-
