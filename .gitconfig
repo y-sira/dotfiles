@@ -1,3 +1,6 @@
 [user]
-	name = "Youki Shiraishi"
-	email = shiraishi.youki@gmail.com
+	name = Youki Shiraishi
+	email = shiraishi@computer.org
+	signingkey = 2494DB449EE114FF
+[commit]
+	gpgsign = true
