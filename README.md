@@ -1,8 +1,8 @@
 # dotfiles
 
-## Link
-
 ```
+git submodule init 
+git submodule update
 ./dotfiles.sh
 ```
 
