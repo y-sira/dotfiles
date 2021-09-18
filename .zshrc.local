@@ -1,0 +1,47 @@
+PATH="/usr/local/sbin:$PATH"
+
+gpgconf --launch gpg-agent
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
+renew_aws_temporary_credentials () {
+  # $1: MFA Code
+  # $2: Lifetime (in seconds, [900, 129600])
+  # $3: MFA device's ARN
+
+  readonly PROFILE="youki.shiraishi"
+  readonly DEFAULT_LIFETIME=43200
+  readonly DEFAULT_MFA_ARN="arn:aws:iam::989284008611:mfa/youki.shiraishi"
+
+  if [[ $# -ge 4 ]]; then
+    echo "Usage: ${0} [MFA_CODE [MFA_ARN [EXPIRATION]]]"
+    return 1
+  fi
+
+  if [[ $# -eq 0 ]]; then
+    echo -n "MFA code: "
+    read mfa_code
+  else
+    mfa_code=$1
+  fi
+
+  if [[ $# -eq 2 ]]; then
+    lifetime=$2
+  else
+    lifetime=$DEFAULT_LIFETIME
+  fi
+
+  if [[ $# -eq 3 ]]; then
+    mfa_arn="${3}"
+  else
+    mfa_arn="${DEFAULT_MFA_ARN}"
+  fi
+
+  aws sts get-session-token --serial-number "${mfa_arn}" --token-code $mfa_code --duration-seconds $lifetime --profile "${PROFILE}" \
+  | jq -r '.Credentials | .AccessKeyId, .SecretAccessKey, .SessionToken' \
+  | xargs -L3 sh -c 'aws configure set aws_access_key_id ${0} && aws configure set aws_secret_access_key ${1} && aws configure set aws_session_token ${2}' 
+}
+
+alias pubip='dig @resolver4.opendns.com myip.opendns.com +short -4'
+
+source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
